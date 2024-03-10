@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Even - lzy的博客</title>
+    <link>http://localhost:1313/</link>
+    <description>Recent content on Even - lzy的博客</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en</language>
+    <lastBuildDate>Sat, 24 Feb 2024 20:50:19 +0800</lastBuildDate><atom:link href="http://localhost:1313/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Java动态代理</title>
+      <link>http://localhost:1313/post/2024-2-24-1/</link>
+      <pubDate>Sat, 24 Feb 2024 20:50:19 +0800</pubDate>
+      
+      <guid>http://localhost:1313/post/2024-2-24-1/</guid>
+      <description>比如现在有一个接口及其实现类： 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 public interface StudentInterface { void eat(String food); void study(); } public class Student implements StudentInterface{ public void study() { System.out.println(&amp;</description>
+    </item>
+    
+    <item>
+      <title>FORTRAN、ALGOL60、COBOL、LISP对比</title>
+      <link>http://localhost:1313/post/2024-2-24-2/</link>
+      <pubDate>Sat, 24 Feb 2024 20:43:21 +0800</pubDate>
+      
+      <guid>http://localhost:1313/post/2024-2-24-2/</guid>
+      <description>FORTRAN、ALGOL60、COBOL、LISP是来解决不同的问题。 FORTRAN用来解决科学计算问题，被用来数值分析，就像今天的Jul</description>
+    </item>
+    
+    <item>
+      <title>思考语言内在的模式</title>
+      <link>http://localhost:1313/post/2024-2-24-3/</link>
+      <pubDate>Sat, 24 Feb 2024 20:37:38 +0800</pubDate>
+      
+      <guid>http://localhost:1313/post/2024-2-24-3/</guid>
+      <description>语言是一种思考方式，思考方式又在影响语言。 C-&amp;gt;Java lisp-&amp;gt;js c++-&amp;gt;c# perl-&amp;gt;php-&amp;gt;ruby-&amp;gt;python 我还是最喜欢perl的思考方式。lisp和C都陷入了某种执着，这种执着确实带来了“统一性”</description>
+    </item>
+    
+  </channel>
+</rss>
