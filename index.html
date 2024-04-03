@@ -33,7 +33,7 @@
     <link rel="alternate" href="/atom.xml" title="luzhiyuan的博客" type="application/atom+xml">
   
   
-    <link rel="shortcut icon" href="/sissy.jpg">
+    <link rel="shortcut icon" href="/avatar.jpg">
   
   
 <link rel="stylesheet" href="/css/style.css">
@@ -117,7 +117,7 @@
   <div class="info-card">
     <div class="avatar">
       
-        <image src=/sissy.jpg></image>
+        <image src=/avatar.jpg></image>
       
       <div class="img-dim"></div>
     </div>
@@ -155,7 +155,7 @@
       
         <a class="archive-link" href="/archives/2024/04 ">
           四月 2024 
-          <div class="archive-count">2 </div>
+          <div class="archive-count">3 </div>
         </a>
       
     </div>
@@ -168,6 +168,12 @@
     <div class="widget">
       <h3 class="widget-title">最新文章</h3>
       <ul>
+        
+          <a class="recent-link" href="/2024/04/04/nextjs%E6%95%99%E7%A8%8B/" title="nextjs教程（一）" >
+            <div class="recent-link-text">
+              nextjs教程（一）
+            </div>
+          </a>
         
           <a class="recent-link" href="/2024/04/03/ffmpeg%E5%AE%9E%E7%94%A8%E5%91%BD%E4%BB%A4/" title="ffmpeg实用命令" >
             <div class="recent-link-text">
@@ -191,6 +197,88 @@
     </div>
     <div id="content-body">
       
+   
+
+
+<article id="post-nextjs教程" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+   
+  <div class="article-inner">
+    <div class="article-main">
+      <header class="article-header">
+        
+<div class="main-title-bar">
+  <div class="main-title-dot"></div>
+  
+    
+      <h1 itemprop="name">
+        <a class="p-name article-title" href="/2024/04/04/nextjs%E6%95%99%E7%A8%8B/">nextjs教程（一）</a>
+      </h1>
+    
+  
+</div>
+
+        <div class='meta-info-bar'>
+          <div class="meta-info">
+  <time class="dt-published" datetime="2024-04-03T17:07:06.000Z" itemprop="datePublished">2024-04-04</time>
+</div>
+          <div class="need-seperator meta-info">
+            <div class="meta-cate-flex">
+  
+    未分类 
+   
+</div>
+  
+          </div>
+          <div class="wordcount need-seperator meta-info">
+            1.9k 字 
+          </div>
+        </div>
+        
+      </header>
+      <div class="e-content article-entry" itemprop="articleBody">
+        
+          <div class="truncate-text">
+            
+              安装nextjs：nextjs是一个react框架。
+
+npx create-next-app@latest
+
+这是官方文档推荐的安装方式，这里我用另一个命令安装别人已经写好的半成品：
+
+npx create-next-app@latest nextjs-dashboard –use-npm –example “https://github.com/vercel/next-learn/tree/main/dashboard/starter-example“
+
+安装好之后，cd到nextjs-dashboard目录，运行npm install安装所需依赖，然后运行npm run dev查看效果。
+样式这个模板工程默认没有导入css，到app目录下找到layout.tsx文件，输入
+1import &#x27;@/app/ui/global.css&#x27;;
+导入样式，使之生效。
+tailwind css此工程默认采用tailwind css这个库来写样式，为什么不用原生写呢？当然原生也可以，react开发组件把html和js写到一块去了，而tailwind css 让css也跟...
+            
+          </div>
+        
+      </div>
+
+         
+    </div>
+    
+     
+    <a class="right-panel  non-pic  "
+      
+      href="/2024/04/04/nextjs%E6%95%99%E7%A8%8B/" 
+    >
+       
+      <i class="fa-solid fa-angle-right non-pic"></i>
+       
+    </a>
+     
+  </div>
+  
+</article>
+
+
+
+
+
+
    
 
 
