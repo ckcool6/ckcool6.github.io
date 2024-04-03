@@ -155,7 +155,7 @@
       
         <a class="archive-link" href="/archives/2024/04 ">
           四月 2024 
-          <div class="archive-count">1 </div>
+          <div class="archive-count">2 </div>
         </a>
       
     </div>
@@ -168,6 +168,12 @@
     <div class="widget">
       <h3 class="widget-title">最新文章</h3>
       <ul>
+        
+          <a class="recent-link" href="/2024/04/03/ffmpeg%E5%AE%9E%E7%94%A8%E5%91%BD%E4%BB%A4/" title="ffmpeg实用命令" >
+            <div class="recent-link-text">
+              ffmpeg实用命令
+            </div>
+          </a>
         
           <a class="recent-link" href="/2024/04/02/hello-world/" title="Hello World" >
             <div class="recent-link-text">
@@ -185,6 +191,94 @@
     </div>
     <div id="content-body">
       
+   
+
+
+<article id="post-ffmpeg实用命令" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+   
+  <div class="article-inner">
+    <div class="article-main">
+      <header class="article-header">
+        
+<div class="main-title-bar">
+  <div class="main-title-dot"></div>
+  
+    
+      <h1 itemprop="name">
+        <a class="p-name article-title" href="/2024/04/03/ffmpeg%E5%AE%9E%E7%94%A8%E5%91%BD%E4%BB%A4/">ffmpeg实用命令</a>
+      </h1>
+    
+  
+</div>
+
+        <div class='meta-info-bar'>
+          <div class="meta-info">
+  <time class="dt-published" datetime="2024-04-02T18:25:37.000Z" itemprop="datePublished">2024-04-03</time>
+</div>
+          <div class="need-seperator meta-info">
+            <div class="meta-cate-flex">
+  
+    未分类 
+   
+</div>
+  
+          </div>
+          <div class="wordcount need-seperator meta-info">
+            662 字 
+          </div>
+        </div>
+        
+      </header>
+      <div class="e-content article-entry" itemprop="articleBody">
+        
+          <div class="truncate-text">
+            
+              介绍ffmpeg是一个媒体转换器，可以把媒体源文件转换成多种格式。
+转码ffmpeg用-i参数读取源文件，比如读取input.avi，转码输出output.mp4：
+
+ffmpeg -i input.avi output.mp4
+
+这种方式转码速度较慢，因为会对源文件重新编码。
+ts转MP4：
+
+ffmpeg -i input.ts -c copy -bsf:a aac_adtstoasc output.mp4
+
+-c参数指定copy的意思是流复制，这样省去了重新编码的时间，格式转换将十分迅速。
+-bsf:a参数指定aac_adtstoasc的意思是，指定aac_adtstoasc过滤器，该过滤器创建 MP4 音频配置， -bsf表示选择过滤器，冒号后面的a表示audio。输入ffmpeg -bsfs命令会列出所有可用过滤器。
+截取视频截取从00：3：00开始到结尾的视频
+
+ffmpeg -ss 00:03:00 -i video.mp4 -c copy pieces.mp4
+
+截取指定时间，从00：3：00到00：20：00
+
+ffmpeg -ss 00:03:00 -i vi...
+            
+          </div>
+        
+      </div>
+
+         
+    </div>
+    
+     
+    <a class="right-panel  non-pic  "
+      
+      href="/2024/04/03/ffmpeg%E5%AE%9E%E7%94%A8%E5%91%BD%E4%BB%A4/" 
+    >
+       
+      <i class="fa-solid fa-angle-right non-pic"></i>
+       
+    </a>
+     
+  </div>
+  
+</article>
+
+
+
+
+
+
    
 
 
