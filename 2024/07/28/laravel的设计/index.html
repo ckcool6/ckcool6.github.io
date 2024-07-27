@@ -1,0 +1,318 @@
+<!DOCTYPE html>
+<html lang=zh>
+<head>
+    <!-- so meta -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="HandheldFriendly" content="True">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5" />
+    <meta name="description" content="流程第一步laravel的入口是 public&#x2F;index.php 文件，apache或nginx会把所有请求导向该文件。该文件的代码如下： 12345678910111213141516171819202122232425262728293031323334353637383940414243444546474849505152535455&lt;?phpuse Illuminate\Contr">
+<meta property="og:type" content="article">
+<meta property="og:title" content="laravel的设计">
+<meta property="og:url" content="http://example.com/2024/07/28/laravel%E7%9A%84%E8%AE%BE%E8%AE%A1/index.html">
+<meta property="og:site_name" content="luzhiyuan的博客">
+<meta property="og:description" content="流程第一步laravel的入口是 public&#x2F;index.php 文件，apache或nginx会把所有请求导向该文件。该文件的代码如下： 12345678910111213141516171819202122232425262728293031323334353637383940414243444546474849505152535455&lt;?phpuse Illuminate\Contr">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2024-07-27T17:44:14.000Z">
+<meta property="article:modified_time" content="2024-07-27T18:37:30.172Z">
+<meta property="article:author" content="lu zhiyuan">
+<meta name="twitter:card" content="summary">
+    
+    
+      
+        
+          <link rel="shortcut icon" href="/images/favicon.ico">
+        
+      
+      
+        
+          <link rel="icon" type="image/png" href="/images/favicon-192x192.png" sizes="192x192">
+        
+      
+      
+        
+          <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png">
+        
+      
+    
+    <!-- title -->
+    <title>laravel的设计</title>
+    <!-- async scripts -->
+    <!-- Google Analytics -->
+
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-J22TKP0TKD"></script>
+  <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'G-J22TKP0TKD');
+  </script>
+
+
+    <!-- Umami Analytics -->
+
+
+    <!-- styles -->
+    
+<link rel="stylesheet" href="/css/style.css">
+
+    <!-- persian styles -->
+    
+    <!-- rss -->
+    
+    
+	<!-- mathjax -->
+	
+		<script type="text/x-mathjax-config">
+		  MathJax.Hub.Config({
+			tex2jax: {
+			  skipTags: ['script', 'noscript', 'style', 'textarea', 'pre'],
+			  inlineMath: [['$','$']]
+			}
+		  });
+		</script>
+		<script src='https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-MML-AM_CHTML' async></script>
+	
+<meta name="generator" content="Hexo 7.1.1"><link rel="alternate" href="/atom.xml" title="luzhiyuan的博客" type="application/atom+xml">
+</head>
+
+<body class="max-width mx-auto px3 ltr">
+    
+      <div id="header-post">
+  <a id="menu-icon" href="#" aria-label="目录"><i class="fa-solid fa-bars fa-lg"></i></a>
+  <a id="menu-icon-tablet" href="#" aria-label="目录"><i class="fa-solid fa-bars fa-lg"></i></a>
+  <a id="top-icon-tablet" href="#" aria-label="顶部" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');" style="display:none;"><i class="fa-solid fa-chevron-up fa-lg"></i></a>
+  <span id="menu">
+    <span id="nav">
+      <ul>
+        <!--
+       --><li><a href="/">首页</a></li><!--
+     --><!--
+       --><li><a href="/about/">关于</a></li><!--
+     --><!--
+       --><li><a href="/archives/">归档</a></li><!--
+     -->
+      </ul>
+    </span>
+    <br/>
+    <span id="actions">
+      <ul>
+        
+        
+        <li><a class="icon" aria-label="下一篇" href="/2024/04/30/cmake%E6%95%99%E7%A8%8B/"><i class="fa-solid fa-chevron-right" aria-hidden="true" onmouseover="$('#i-next').toggle();" onmouseout="$('#i-next').toggle();"></i></a></li>
+        
+        <li><a class="icon" aria-label="返回顶部" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fa-solid fa-chevron-up" aria-hidden="true" onmouseover="$('#i-top').toggle();" onmouseout="$('#i-top').toggle();"></i></a></li>
+        <li><a class="icon" aria-label="分享文章" href="#"><i class="fa-solid fa-share-alt" aria-hidden="true" onmouseover="$('#i-share').toggle();" onmouseout="$('#i-share').toggle();" onclick="$('#share').toggle();return false;"></i></a></li>
+      </ul>
+      <span id="i-prev" class="info" style="display:none;">上一篇</span>
+      <span id="i-next" class="info" style="display:none;">下一篇</span>
+      <span id="i-top" class="info" style="display:none;">返回顶部</span>
+      <span id="i-share" class="info" style="display:none;">分享文章</span>
+    </span>
+    <br/>
+    <div id="share" style="display: none">
+      <ul>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.facebook.com/sharer.php?u=http://example.com/2024/07/28/laravel%E7%9A%84%E8%AE%BE%E8%AE%A1/"><i class="fab fa-facebook " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://twitter.com/share?url=http://example.com/2024/07/28/laravel%E7%9A%84%E8%AE%BE%E8%AE%A1/&text=laravel的设计"><i class="fab fa-twitter " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.linkedin.com/shareArticle?url=http://example.com/2024/07/28/laravel%E7%9A%84%E8%AE%BE%E8%AE%A1/&title=laravel的设计"><i class="fab fa-linkedin " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://pinterest.com/pin/create/bookmarklet/?url=http://example.com/2024/07/28/laravel%E7%9A%84%E8%AE%BE%E8%AE%A1/&is_video=false&description=laravel的设计"><i class="fab fa-pinterest " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=laravel的设计&body=Check out this article: http://example.com/2024/07/28/laravel%E7%9A%84%E8%AE%BE%E8%AE%A1/"><i class="fa-solid fa-envelope " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://getpocket.com/save?url=http://example.com/2024/07/28/laravel%E7%9A%84%E8%AE%BE%E8%AE%A1/&title=laravel的设计"><i class="fab fa-get-pocket " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://reddit.com/submit?url=http://example.com/2024/07/28/laravel%E7%9A%84%E8%AE%BE%E8%AE%A1/&title=laravel的设计"><i class="fab fa-reddit " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.stumbleupon.com/submit?url=http://example.com/2024/07/28/laravel%E7%9A%84%E8%AE%BE%E8%AE%A1/&title=laravel的设计"><i class="fab fa-stumbleupon " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://digg.com/submit?url=http://example.com/2024/07/28/laravel%E7%9A%84%E8%AE%BE%E8%AE%A1/&title=laravel的设计"><i class="fab fa-digg " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.tumblr.com/share/link?url=http://example.com/2024/07/28/laravel%E7%9A%84%E8%AE%BE%E8%AE%A1/&name=laravel的设计&description="><i class="fab fa-tumblr " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://news.ycombinator.com/submitlink?u=http://example.com/2024/07/28/laravel%E7%9A%84%E8%AE%BE%E8%AE%A1/&t=laravel的设计"><i class="fab fa-hacker-news " aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+    
+    
+      <div id="toc">
+        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%B5%81%E7%A8%8B"><span class="toc-number">1.</span> <span class="toc-text">流程</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%AC%AC%E4%B8%80%E6%AD%A5"><span class="toc-number">1.1.</span> <span class="toc-text">第一步</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%AC%AC%E4%BA%8C%E6%AD%A5"><span class="toc-number">1.2.</span> <span class="toc-text">第二步</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%AC%AC%E4%B8%89%E6%AD%A5"><span class="toc-number">1.3.</span> <span class="toc-text">第三步</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%AC%AC%E5%9B%9B%E6%AD%A5"><span class="toc-number">1.4.</span> <span class="toc-text">第四步</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%BB%93%E6%9D%9F"><span class="toc-number">1.5.</span> <span class="toc-text">结束</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%AE%B9%E5%99%A8%E4%B8%8E%E4%BE%9D%E8%B5%96%E6%B3%A8%E5%85%A5"><span class="toc-number">2.</span> <span class="toc-text">容器与依赖注入</span></a></li></ol>
+      </div>
+    
+  </span>
+</div>
+
+    
+    <div class="content index py4 ">
+        
+        <article class="post h-entry" itemscope itemtype="http://schema.org/BlogPosting">
+  <header>
+    
+    <h1 class="posttitle p-name" itemprop="name headline">
+        laravel的设计
+    </h1>
+
+
+
+    <div class="meta">
+      <span class="author p-author h-card" itemprop="author" itemscope itemtype="http://schema.org/Person">
+        <span class="p-name" itemprop="name">lu zhiyuan</span>
+      </span>
+      
+    <div class="postdate">
+      
+        <time datetime="2024-07-27T17:44:14.000Z" class="dt-published" itemprop="datePublished">2024-07-28</time>
+        
+      
+    </div>
+
+
+      
+
+      
+
+    </div>
+  </header>
+  
+
+  <div class="content e-content" itemprop="articleBody">
+    <h2 id="流程"><a href="#流程" class="headerlink" title="流程"></a>流程</h2><h3 id="第一步"><a href="#第一步" class="headerlink" title="第一步"></a>第一步</h3><p>laravel的入口是 <code>public/index.php</code> 文件，apache或nginx会把所有请求导向该文件。该文件的代码如下：</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?php</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">use</span> <span class="title">Illuminate</span>\<span class="title">Contracts</span>\<span class="title">Http</span>\<span class="title">Kernel</span>;</span><br><span class="line"><span class="keyword">use</span> <span class="title">Illuminate</span>\<span class="title">Http</span>\<span class="title">Request</span>;</span><br><span class="line"></span><br><span class="line"><span class="title function_ invoke__">define</span>(<span class="string">&#x27;LARAVEL_START&#x27;</span>, <span class="title function_ invoke__">microtime</span>(<span class="literal">true</span>));</span><br><span class="line"></span><br><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment">|--------------------------------------------------------------------------</span></span><br><span class="line"><span class="comment">| Check If The Application Is Under Maintenance</span></span><br><span class="line"><span class="comment">|--------------------------------------------------------------------------</span></span><br><span class="line"><span class="comment">|</span></span><br><span class="line"><span class="comment">| If the application is in maintenance / demo mode via the &quot;down&quot; command</span></span><br><span class="line"><span class="comment">| we will load this file so that any pre-rendered content can be shown</span></span><br><span class="line"><span class="comment">| instead of starting the framework, which could cause an exception.</span></span><br><span class="line"><span class="comment">|</span></span><br><span class="line"><span class="comment">*/</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> (<span class="title function_ invoke__">file_exists</span>(<span class="variable">$maintenance</span> = <span class="keyword">__DIR__</span>.<span class="string">&#x27;/../storage/framework/maintenance.php&#x27;</span>)) &#123;</span><br><span class="line">    <span class="keyword">require</span> <span class="variable">$maintenance</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment">|--------------------------------------------------------------------------</span></span><br><span class="line"><span class="comment">| Register The Auto Loader</span></span><br><span class="line"><span class="comment">|--------------------------------------------------------------------------</span></span><br><span class="line"><span class="comment">|</span></span><br><span class="line"><span class="comment">| Composer provides a convenient, automatically generated class loader for</span></span><br><span class="line"><span class="comment">| this application. We just need to utilize it! We&#x27;ll simply require it</span></span><br><span class="line"><span class="comment">| into the script here so we don&#x27;t need to manually load our classes.</span></span><br><span class="line"><span class="comment">|</span></span><br><span class="line"><span class="comment">*/</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">require</span> <span class="keyword">__DIR__</span>.<span class="string">&#x27;/../vendor/autoload.php&#x27;</span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment">|--------------------------------------------------------------------------</span></span><br><span class="line"><span class="comment">| Run The Application</span></span><br><span class="line"><span class="comment">|--------------------------------------------------------------------------</span></span><br><span class="line"><span class="comment">|</span></span><br><span class="line"><span class="comment">| Once we have the application, we can handle the incoming request using</span></span><br><span class="line"><span class="comment">| the application&#x27;s HTTP kernel. Then, we will send the response back</span></span><br><span class="line"><span class="comment">| to this client&#x27;s browser, allowing them to enjoy our application.</span></span><br><span class="line"><span class="comment">|</span></span><br><span class="line"><span class="comment">*/</span></span><br><span class="line"></span><br><span class="line"><span class="variable">$app</span> = <span class="keyword">require_once</span> <span class="keyword">__DIR__</span>.<span class="string">&#x27;/../bootstrap/app.php&#x27;</span>;</span><br><span class="line"></span><br><span class="line"><span class="variable">$kernel</span> = <span class="variable">$app</span>-&gt;<span class="title function_ invoke__">make</span>(<span class="title class_">Kernel</span>::<span class="variable language_">class</span>);</span><br><span class="line"></span><br><span class="line"><span class="variable">$response</span> = <span class="variable">$kernel</span>-&gt;<span class="title function_ invoke__">handle</span>(</span><br><span class="line">    <span class="variable">$request</span> = <span class="title class_">Request</span>::<span class="title function_ invoke__">capture</span>()</span><br><span class="line">)-&gt;<span class="title function_ invoke__">send</span>();</span><br><span class="line"></span><br><span class="line"><span class="variable">$kernel</span>-&gt;<span class="title function_ invoke__">terminate</span>(<span class="variable">$request</span>, <span class="variable">$response</span>);</span><br></pre></td></tr></table></figure>
+
+<p>laravel的第一步是从<code>bootstrap/app.php</code>中获取app实例（service container）。</p>
+<h3 id="第二步"><a href="#第二步" class="headerlink" title="第二步"></a>第二步</h3><p>所有的请求进入http kernel，位置在 <code>app/Http/Kernel.php</code>，这个类里定义了一堆中间件数组。所有请求都需要这些中间件处理。kernel类的handle方法接受请求，返回响应。</p>
+<h3 id="第三步"><a href="#第三步" class="headerlink" title="第三步"></a>第三步</h3><p>在laravel启动过程中，最重要的是加载各个providers，这些providers可以被当作是laravel的零件。laravel的所有providers都在 config&#x2F;app.php 文件中的providers数组中配置。</p>
+<h3 id="第四步"><a href="#第四步" class="headerlink" title="第四步"></a>第四步</h3><p>最重要的一个providers叫RouteServiceProvider，这个类的位置在<code>app/Providers/RouteServiceProvider.php</code>。</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?php</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">namespace</span> <span class="title class_">App</span>\<span class="title class_">Providers</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">use</span> <span class="title">Illuminate</span>\<span class="title">Cache</span>\<span class="title">RateLimiting</span>\<span class="title">Limit</span>;</span><br><span class="line"><span class="keyword">use</span> <span class="title">Illuminate</span>\<span class="title">Foundation</span>\<span class="title">Support</span>\<span class="title">Providers</span>\<span class="title">RouteServiceProvider</span> <span class="keyword">as</span> <span class="title">ServiceProvider</span>;</span><br><span class="line"><span class="keyword">use</span> <span class="title">Illuminate</span>\<span class="title">Http</span>\<span class="title">Request</span>;</span><br><span class="line"><span class="keyword">use</span> <span class="title">Illuminate</span>\<span class="title">Support</span>\<span class="title">Facades</span>\<span class="title">RateLimiter</span>;</span><br><span class="line"><span class="keyword">use</span> <span class="title">Illuminate</span>\<span class="title">Support</span>\<span class="title">Facades</span>\<span class="title">Route</span>;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">RouteServiceProvider</span> <span class="keyword">extends</span> <span class="title">ServiceProvider</span></span></span><br><span class="line"><span class="class"></span>&#123;</span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * The path to your application&#x27;s &quot;home&quot; route.</span></span><br><span class="line"><span class="comment">     *</span></span><br><span class="line"><span class="comment">     * Typically, users are redirected here after authentication.</span></span><br><span class="line"><span class="comment">     *</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@var</span> string</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">const</span> <span class="variable constant_">HOME</span> = <span class="string">&#x27;/home&#x27;</span>;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * Define your route model bindings, pattern filters, and other route configuration.</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">boot</span>(<span class="params"></span>): <span class="title">void</span></span></span><br><span class="line"><span class="function">    </span>&#123;</span><br><span class="line">        <span class="title class_">RateLimiter</span>::<span class="keyword">for</span>(<span class="string">&#x27;api&#x27;</span>, <span class="function"><span class="keyword">function</span> (<span class="params">Request <span class="variable">$request</span></span>) </span>&#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="title class_">Limit</span>::<span class="title function_ invoke__">perMinute</span>(<span class="number">60</span>)-&gt;<span class="title function_ invoke__">by</span>(<span class="variable">$request</span>-&gt;<span class="title function_ invoke__">user</span>()?-&gt;id ?: <span class="variable">$request</span>-&gt;<span class="title function_ invoke__">ip</span>());</span><br><span class="line">        &#125;);</span><br><span class="line"></span><br><span class="line">        <span class="variable language_">$this</span>-&gt;<span class="title function_ invoke__">routes</span>(function () &#123;</span><br><span class="line">            <span class="title class_">Route</span>::<span class="title function_ invoke__">middleware</span>(<span class="string">&#x27;api&#x27;</span>)</span><br><span class="line">                -&gt;<span class="title function_ invoke__">prefix</span>(<span class="string">&#x27;api&#x27;</span>)</span><br><span class="line">                -&gt;<span class="title function_ invoke__">group</span>(<span class="title function_ invoke__">base_path</span>(<span class="string">&#x27;routes/api.php&#x27;</span>));</span><br><span class="line"></span><br><span class="line">            <span class="title class_">Route</span>::<span class="title function_ invoke__">middleware</span>(<span class="string">&#x27;web&#x27;</span>)</span><br><span class="line">                -&gt;<span class="title function_ invoke__">group</span>(<span class="title function_ invoke__">base_path</span>(<span class="string">&#x27;routes/web.php&#x27;</span>));</span><br><span class="line">        &#125;);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<p>路由把请求分配给controller，并运行任何特定路由中间件。</p>
+<h3 id="结束"><a href="#结束" class="headerlink" title="结束"></a>结束</h3><p>handle方法返回响应，然后send方法返回内容到浏览器。</p>
+<h2 id="容器与依赖注入"><a href="#容器与依赖注入" class="headerlink" title="容器与依赖注入"></a>容器与依赖注入</h2>
+  </div>
+</article>
+
+
+
+        
+          <div id="footer-post-container">
+  <div id="footer-post">
+
+    <div id="nav-footer" style="display: none">
+      <ul>
+        
+          <li><a href="/">首页</a></li>
+        
+          <li><a href="/about/">关于</a></li>
+        
+          <li><a href="/archives/">归档</a></li>
+        
+      </ul>
+    </div>
+
+    
+    
+      <div id="toc-footer" style="display: none">
+        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%B5%81%E7%A8%8B"><span class="toc-number">1.</span> <span class="toc-text">流程</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%AC%AC%E4%B8%80%E6%AD%A5"><span class="toc-number">1.1.</span> <span class="toc-text">第一步</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%AC%AC%E4%BA%8C%E6%AD%A5"><span class="toc-number">1.2.</span> <span class="toc-text">第二步</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%AC%AC%E4%B8%89%E6%AD%A5"><span class="toc-number">1.3.</span> <span class="toc-text">第三步</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%AC%AC%E5%9B%9B%E6%AD%A5"><span class="toc-number">1.4.</span> <span class="toc-text">第四步</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%BB%93%E6%9D%9F"><span class="toc-number">1.5.</span> <span class="toc-text">结束</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%AE%B9%E5%99%A8%E4%B8%8E%E4%BE%9D%E8%B5%96%E6%B3%A8%E5%85%A5"><span class="toc-number">2.</span> <span class="toc-text">容器与依赖注入</span></a></li></ol>
+      </div>
+    
+
+    <div id="share-footer" style="display: none">
+      <ul>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.facebook.com/sharer.php?u=http://example.com/2024/07/28/laravel%E7%9A%84%E8%AE%BE%E8%AE%A1/"><i class="fab fa-facebook fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://twitter.com/share?url=http://example.com/2024/07/28/laravel%E7%9A%84%E8%AE%BE%E8%AE%A1/&text=laravel的设计"><i class="fab fa-twitter fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.linkedin.com/shareArticle?url=http://example.com/2024/07/28/laravel%E7%9A%84%E8%AE%BE%E8%AE%A1/&title=laravel的设计"><i class="fab fa-linkedin fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://pinterest.com/pin/create/bookmarklet/?url=http://example.com/2024/07/28/laravel%E7%9A%84%E8%AE%BE%E8%AE%A1/&is_video=false&description=laravel的设计"><i class="fab fa-pinterest fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=laravel的设计&body=Check out this article: http://example.com/2024/07/28/laravel%E7%9A%84%E8%AE%BE%E8%AE%A1/"><i class="fa-solid fa-envelope fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://getpocket.com/save?url=http://example.com/2024/07/28/laravel%E7%9A%84%E8%AE%BE%E8%AE%A1/&title=laravel的设计"><i class="fab fa-get-pocket fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://reddit.com/submit?url=http://example.com/2024/07/28/laravel%E7%9A%84%E8%AE%BE%E8%AE%A1/&title=laravel的设计"><i class="fab fa-reddit fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.stumbleupon.com/submit?url=http://example.com/2024/07/28/laravel%E7%9A%84%E8%AE%BE%E8%AE%A1/&title=laravel的设计"><i class="fab fa-stumbleupon fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://digg.com/submit?url=http://example.com/2024/07/28/laravel%E7%9A%84%E8%AE%BE%E8%AE%A1/&title=laravel的设计"><i class="fab fa-digg fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.tumblr.com/share/link?url=http://example.com/2024/07/28/laravel%E7%9A%84%E8%AE%BE%E8%AE%A1/&name=laravel的设计&description="><i class="fab fa-tumblr fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://news.ycombinator.com/submitlink?u=http://example.com/2024/07/28/laravel%E7%9A%84%E8%AE%BE%E8%AE%A1/&t=laravel的设计"><i class="fab fa-hacker-news fa-lg" aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+
+    <div id="actions-footer">
+        <a id="menu" class="icon" href="#" onclick="$('#nav-footer').toggle();return false;"><i class="fa-solid fa-bars fa-lg" aria-hidden="true"></i> 菜单</a>
+        
+          <a id="toc" class="icon" href="#" onclick="$('#toc-footer').toggle();return false;"><i class="fa-solid fa-list fa-lg" aria-hidden="true"></i> 目录</a>
+        
+        <a id="share" class="icon" href="#" onclick="$('#share-footer').toggle();return false;"><i class="fa-solid fa-share-alt fa-lg" aria-hidden="true"></i> 分享</a>
+        <a id="top" style="display:none" class="icon" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fa-solid fa-chevron-up fa-lg" aria-hidden="true"></i> 返回顶部</a>
+    </div>
+
+  </div>
+</div>
+
+        
+        <footer id="footer">
+  <div class="footer-left">
+    Copyright &copy;
+    
+    
+    2023-2024
+    lu zhiyuan
+  </div>
+  <div class="footer-right">
+    <nav>
+      <ul>
+        <!--
+       --><li><a href="/">首页</a></li><!--
+     --><!--
+       --><li><a href="/about/">关于</a></li><!--
+     --><!--
+       --><li><a href="/archives/">归档</a></li><!--
+     -->
+      </ul>
+    </nav>
+  </div>
+</footer>
+
+    </div>
+    <!-- styles -->
+
+
+
+  <link rel="preload" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" crossorigin="anonymous" onload="this.onload=null;this.rel='stylesheet'"/>
+
+
+    <!-- jquery -->
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" crossorigin="anonymous"></script>
+
+
+
+
+<!-- clipboard -->
+
+  
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.7/clipboard.min.js" crossorigin="anonymous"></script>
+  
+  <script type="text/javascript">
+  $(function() {
+    // copy-btn HTML
+    var btn = "<span class=\"btn-copy tooltipped tooltipped-sw\" aria-label=\"复制到粘贴板！\">";
+    btn += '<i class="fa-regular fa-clone"></i>';
+    btn += '</span>';
+    // mount it!
+    $(".highlight table").before(btn);
+    var clip = new ClipboardJS('.btn-copy', {
+      text: function(trigger) {
+        return Array.from(trigger.nextElementSibling.querySelectorAll('.code')).reduce((str,it)=>str+it.innerText+'\n','')
+      }
+    });
+    clip.on('success', function(e) {
+      e.trigger.setAttribute('aria-label', "复制成功！");
+      e.clearSelection();
+    })
+  })
+  </script>
+
+
+<script src="/js/main.js"></script>
+
+<!-- search -->
+
+<!-- Baidu Analytics -->
+
+<!-- Cloudflare Analytics -->
+
+<!-- Disqus Comments -->
+
+<!-- utterances Comments -->
+
+</body>
+</html>

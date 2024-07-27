@@ -1,0 +1,330 @@
+<!DOCTYPE html>
+<html lang=zh>
+<head>
+    <!-- so meta -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="HandheldFriendly" content="True">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5" />
+    <meta name="description" content="动态渲染对那些需要实时更新的页面采用动态渲染，在data.tsx里写入： 1import &#123; unstable_noStore as noStore &#125; from &#x27;next&#x2F;cache&#x27;; 导入unstable_noStore这个函数，然后在fetchRevenue ，fetchLatestInvoices，fetchCardData，fetchFilte">
+<meta property="og:type" content="article">
+<meta property="og:title" content="next教程（四）">
+<meta property="og:url" content="http://example.com/2024/04/06/next%E6%95%99%E7%A8%8B%E5%9B%9B/index.html">
+<meta property="og:site_name" content="luzhiyuan的博客">
+<meta property="og:description" content="动态渲染对那些需要实时更新的页面采用动态渲染，在data.tsx里写入： 1import &#123; unstable_noStore as noStore &#125; from &#x27;next&#x2F;cache&#x27;; 导入unstable_noStore这个函数，然后在fetchRevenue ，fetchLatestInvoices，fetchCardData，fetchFilte">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://images2.imgbox.com/21/b1/A42Su9rE_o.png">
+<meta property="article:published_time" content="2024-04-06T10:41:17.000Z">
+<meta property="article:modified_time" content="2024-05-02T05:19:10.697Z">
+<meta property="article:author" content="lu zhiyuan">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://images2.imgbox.com/21/b1/A42Su9rE_o.png">
+    
+    
+      
+        
+          <link rel="shortcut icon" href="/images/favicon.ico">
+        
+      
+      
+        
+          <link rel="icon" type="image/png" href="/images/favicon-192x192.png" sizes="192x192">
+        
+      
+      
+        
+          <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png">
+        
+      
+    
+    <!-- title -->
+    <title>next教程（四）</title>
+    <!-- async scripts -->
+    <!-- Google Analytics -->
+
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-J22TKP0TKD"></script>
+  <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'G-J22TKP0TKD');
+  </script>
+
+
+    <!-- Umami Analytics -->
+
+
+    <!-- styles -->
+    
+<link rel="stylesheet" href="/css/style.css">
+
+    <!-- persian styles -->
+    
+    <!-- rss -->
+    
+    
+	<!-- mathjax -->
+	
+		<script type="text/x-mathjax-config">
+		  MathJax.Hub.Config({
+			tex2jax: {
+			  skipTags: ['script', 'noscript', 'style', 'textarea', 'pre'],
+			  inlineMath: [['$','$']]
+			}
+		  });
+		</script>
+		<script src='https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-MML-AM_CHTML' async></script>
+	
+<meta name="generator" content="Hexo 7.1.1"><link rel="alternate" href="/atom.xml" title="luzhiyuan的博客" type="application/atom+xml">
+</head>
+
+<body class="max-width mx-auto px3 ltr">
+    
+      <div id="header-post">
+  <a id="menu-icon" href="#" aria-label="目录"><i class="fa-solid fa-bars fa-lg"></i></a>
+  <a id="menu-icon-tablet" href="#" aria-label="目录"><i class="fa-solid fa-bars fa-lg"></i></a>
+  <a id="top-icon-tablet" href="#" aria-label="顶部" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');" style="display:none;"><i class="fa-solid fa-chevron-up fa-lg"></i></a>
+  <span id="menu">
+    <span id="nav">
+      <ul>
+        <!--
+       --><li><a href="/">首页</a></li><!--
+     --><!--
+       --><li><a href="/about/">关于</a></li><!--
+     --><!--
+       --><li><a href="/archives/">归档</a></li><!--
+     -->
+      </ul>
+    </span>
+    <br/>
+    <span id="actions">
+      <ul>
+        
+        <li><a class="icon" aria-label="上一篇" href="/2024/04/07/next%E6%95%99%E7%A8%8B%E4%BA%94/"><i class="fa-solid fa-chevron-left" aria-hidden="true" onmouseover="$('#i-prev').toggle();" onmouseout="$('#i-prev').toggle();"></i></a></li>
+        
+        
+        <li><a class="icon" aria-label="下一篇" href="/2024/04/05/next%E6%95%99%E7%A8%8B%E4%B8%89/"><i class="fa-solid fa-chevron-right" aria-hidden="true" onmouseover="$('#i-next').toggle();" onmouseout="$('#i-next').toggle();"></i></a></li>
+        
+        <li><a class="icon" aria-label="返回顶部" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fa-solid fa-chevron-up" aria-hidden="true" onmouseover="$('#i-top').toggle();" onmouseout="$('#i-top').toggle();"></i></a></li>
+        <li><a class="icon" aria-label="分享文章" href="#"><i class="fa-solid fa-share-alt" aria-hidden="true" onmouseover="$('#i-share').toggle();" onmouseout="$('#i-share').toggle();" onclick="$('#share').toggle();return false;"></i></a></li>
+      </ul>
+      <span id="i-prev" class="info" style="display:none;">上一篇</span>
+      <span id="i-next" class="info" style="display:none;">下一篇</span>
+      <span id="i-top" class="info" style="display:none;">返回顶部</span>
+      <span id="i-share" class="info" style="display:none;">分享文章</span>
+    </span>
+    <br/>
+    <div id="share" style="display: none">
+      <ul>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.facebook.com/sharer.php?u=http://example.com/2024/04/06/next%E6%95%99%E7%A8%8B%E5%9B%9B/"><i class="fab fa-facebook " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://twitter.com/share?url=http://example.com/2024/04/06/next%E6%95%99%E7%A8%8B%E5%9B%9B/&text=next教程（四）"><i class="fab fa-twitter " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.linkedin.com/shareArticle?url=http://example.com/2024/04/06/next%E6%95%99%E7%A8%8B%E5%9B%9B/&title=next教程（四）"><i class="fab fa-linkedin " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://pinterest.com/pin/create/bookmarklet/?url=http://example.com/2024/04/06/next%E6%95%99%E7%A8%8B%E5%9B%9B/&is_video=false&description=next教程（四）"><i class="fab fa-pinterest " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=next教程（四）&body=Check out this article: http://example.com/2024/04/06/next%E6%95%99%E7%A8%8B%E5%9B%9B/"><i class="fa-solid fa-envelope " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://getpocket.com/save?url=http://example.com/2024/04/06/next%E6%95%99%E7%A8%8B%E5%9B%9B/&title=next教程（四）"><i class="fab fa-get-pocket " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://reddit.com/submit?url=http://example.com/2024/04/06/next%E6%95%99%E7%A8%8B%E5%9B%9B/&title=next教程（四）"><i class="fab fa-reddit " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.stumbleupon.com/submit?url=http://example.com/2024/04/06/next%E6%95%99%E7%A8%8B%E5%9B%9B/&title=next教程（四）"><i class="fab fa-stumbleupon " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://digg.com/submit?url=http://example.com/2024/04/06/next%E6%95%99%E7%A8%8B%E5%9B%9B/&title=next教程（四）"><i class="fab fa-digg " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.tumblr.com/share/link?url=http://example.com/2024/04/06/next%E6%95%99%E7%A8%8B%E5%9B%9B/&name=next教程（四）&description="><i class="fab fa-tumblr " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://news.ycombinator.com/submitlink?u=http://example.com/2024/04/06/next%E6%95%99%E7%A8%8B%E5%9B%9B/&t=next教程（四）"><i class="fab fa-hacker-news " aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+    
+    
+      <div id="toc">
+        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%8A%A8%E6%80%81%E6%B8%B2%E6%9F%93"><span class="toc-number">1.</span> <span class="toc-text">动态渲染</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%B5%81%E4%BC%A0%E8%BE%93"><span class="toc-number">2.</span> <span class="toc-text">流传输</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%8F%91%E7%A5%A8%E9%A1%B5%E9%9D%A2%E6%B7%BB%E5%8A%A0%E6%90%9C%E7%B4%A2"><span class="toc-number">3.</span> <span class="toc-text">发票页面添加搜索</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%B7%BB%E5%8A%A0%E5%88%86%E9%A1%B5"><span class="toc-number">4.</span> <span class="toc-text">添加分页</span></a></li></ol>
+      </div>
+    
+  </span>
+</div>
+
+    
+    <div class="content index py4 ">
+        
+        <article class="post h-entry" itemscope itemtype="http://schema.org/BlogPosting">
+  <header>
+    
+    <h1 class="posttitle p-name" itemprop="name headline">
+        next教程（四）
+    </h1>
+
+
+
+    <div class="meta">
+      <span class="author p-author h-card" itemprop="author" itemscope itemtype="http://schema.org/Person">
+        <span class="p-name" itemprop="name">lu zhiyuan</span>
+      </span>
+      
+    <div class="postdate">
+      
+        <time datetime="2024-04-06T10:41:17.000Z" class="dt-published" itemprop="datePublished">2024-04-06</time>
+        
+      
+    </div>
+
+
+      
+
+      
+
+    </div>
+  </header>
+  
+
+  <div class="content e-content" itemprop="articleBody">
+    <h2 id="动态渲染"><a href="#动态渲染" class="headerlink" title="动态渲染"></a>动态渲染</h2><p>对那些需要实时更新的页面采用动态渲染，在<code>data.tsx</code>里写入：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> &#123; unstable_noStore <span class="keyword">as</span> noStore &#125; <span class="keyword">from</span> <span class="string">&#x27;next/cache&#x27;</span>;</span><br></pre></td></tr></table></figure>
+<p>导入unstable_noStore这个函数，然后在fetchRevenue ，fetchLatestInvoices，fetchCardData，fetchFilteredInvoices，fetchInvoiceById，fetchFilteredCustomers这几个函数里调用。</p>
+<h2 id="流传输"><a href="#流传输" class="headerlink" title="流传输"></a>流传输</h2><p>动态渲染带来的问题就是，应用会等待最慢的那个函数获取数据。然后<strong>一次性</strong>显示。流传输就是让它分解为块，一块一块的传输。<br>整个页面流传输，需要创建一个<code>loading.tsx</code>文件，比如创建一个<code>app/dashboard/loading.tsx</code>,写入：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> <span class="title class_">DashboardSkeleton</span> <span class="keyword">from</span> <span class="string">&#x27;@/app/ui/skeletons&#x27;</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> <span class="keyword">function</span> <span class="title function_">Loading</span>(<span class="params"></span>) &#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="language-xml"><span class="tag">&lt;<span class="name">DashboardSkeleton</span> /&gt;</span></span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>在dashboard目录内创建这个文件将会影响所有页面，这时候可以使用路由分组，就是新建一个名字带括号的目录。比如新建<br><code>app\dashboard\(overview)\</code>目录,把<code>loading.tsx</code>,<code>page.tsx</code>放到这个目录里。</p>
+<p>组件流传输：参考react的suspend组件用法。</p>
+<h2 id="发票页面添加搜索"><a href="#发票页面添加搜索" class="headerlink" title="发票页面添加搜索"></a>发票页面添加搜索</h2><p>在<code>app/dashboard/invoices/page.tsx</code>文件中写入：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> <span class="title class_">Pagination</span> <span class="keyword">from</span> <span class="string">&#x27;@/app/ui/invoices/pagination&#x27;</span>;</span><br><span class="line"><span class="keyword">import</span> <span class="title class_">Search</span> <span class="keyword">from</span> <span class="string">&#x27;@/app/ui/search&#x27;</span>;</span><br><span class="line"><span class="keyword">import</span> <span class="title class_">Table</span> <span class="keyword">from</span> <span class="string">&#x27;@/app/ui/invoices/table&#x27;</span>;</span><br><span class="line"><span class="keyword">import</span> &#123;<span class="title class_">CreateInvoice</span>&#125; <span class="keyword">from</span> <span class="string">&#x27;@/app/ui/invoices/buttons&#x27;</span>;</span><br><span class="line"><span class="keyword">import</span> &#123;lusitana&#125; <span class="keyword">from</span> <span class="string">&#x27;@/app/ui/fonts&#x27;</span>;</span><br><span class="line"><span class="keyword">import</span> &#123;<span class="title class_">InvoicesTableSkeleton</span>&#125; <span class="keyword">from</span> <span class="string">&#x27;@/app/ui/skeletons&#x27;</span>;</span><br><span class="line"><span class="keyword">import</span> &#123;<span class="title class_">Suspense</span>&#125; <span class="keyword">from</span> <span class="string">&#x27;react&#x27;</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> <span class="keyword">async</span> <span class="keyword">function</span> <span class="title function_">Page</span>(<span class="params">&#123;</span></span><br><span class="line"><span class="params">                                       searchParams,</span></span><br><span class="line"><span class="params">                                   &#125;: &#123;</span></span><br><span class="line"><span class="params">    searchParams?: &#123;</span></span><br><span class="line"><span class="params">        query?: string;</span></span><br><span class="line"><span class="params">        page?: string;</span></span><br><span class="line"><span class="params">    &#125;;</span></span><br><span class="line"><span class="params">&#125;</span>) &#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">const</span> query = searchParams?.<span class="property">query</span> || <span class="string">&#x27;&#x27;</span>;</span><br><span class="line">    <span class="keyword">const</span> currentPage = <span class="title class_">Number</span>(searchParams?.<span class="property">page</span>) || <span class="number">1</span>;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> (</span><br><span class="line">        <span class="language-xml"><span class="tag">&lt;<span class="name">div</span> <span class="attr">className</span>=<span class="string">&quot;w-full&quot;</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">            <span class="tag">&lt;<span class="name">div</span> <span class="attr">className</span>=<span class="string">&quot;flex w-full items-center justify-between&quot;</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">                <span class="tag">&lt;<span class="name">h1</span> <span class="attr">className</span>=<span class="string">&#123;</span>`$&#123;<span class="attr">lusitana.className</span>&#125; <span class="attr">text-2xl</span>`&#125;&gt;</span>Invoices<span class="tag">&lt;/<span class="name">h1</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">            <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">            <span class="tag">&lt;<span class="name">div</span> <span class="attr">className</span>=<span class="string">&quot;mt-4 flex items-center justify-between gap-2 md:mt-8&quot;</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">                <span class="tag">&lt;<span class="name">Search</span> <span class="attr">placeholder</span>=<span class="string">&quot;Search invoices...&quot;</span>/&gt;</span></span></span><br><span class="line"><span class="language-xml">                <span class="tag">&lt;<span class="name">CreateInvoice</span>/&gt;</span></span></span><br><span class="line"><span class="language-xml">            <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">            <span class="tag">&lt;<span class="name">Suspense</span> <span class="attr">key</span>=<span class="string">&#123;query</span> + <span class="attr">currentPage</span>&#125; <span class="attr">fallback</span>=<span class="string">&#123;</span>&lt;<span class="attr">InvoicesTableSkeleton</span>/&gt;</span>&#125;&gt;</span></span><br><span class="line"><span class="language-xml">                <span class="tag">&lt;<span class="name">Table</span> <span class="attr">query</span>=<span class="string">&#123;query&#125;</span> <span class="attr">currentPage</span>=<span class="string">&#123;currentPage&#125;/</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">            <span class="tag">&lt;/<span class="name">Suspense</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">            <span class="tag">&lt;<span class="name">div</span> <span class="attr">className</span>=<span class="string">&quot;mt-5 flex w-full justify-center&quot;</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">                &#123;/* <span class="tag">&lt;<span class="name">Pagination</span> <span class="attr">totalPages</span>=<span class="string">&#123;totalPages&#125;</span> /&gt;</span> */&#125;</span></span><br><span class="line"><span class="language-xml">            <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">        <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span></span><br><span class="line">    );</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>在<code>app/ui/search.tsx</code>文件中写入：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">&#x27;use client&#x27;</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> &#123;<span class="title class_">MagnifyingGlassIcon</span>&#125; <span class="keyword">from</span> <span class="string">&#x27;@heroicons/react/24/outline&#x27;</span>;</span><br><span class="line"><span class="keyword">import</span> &#123;useSearchParams,usePathname, useRouter&#125; <span class="keyword">from</span> <span class="string">&#x27;next/navigation&#x27;</span>;</span><br><span class="line"><span class="keyword">import</span> &#123; useDebouncedCallback &#125; <span class="keyword">from</span> <span class="string">&#x27;use-debounce&#x27;</span>;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> <span class="keyword">function</span> <span class="title function_">Search</span>(<span class="params">&#123;placeholder&#125;: &#123; placeholder: string &#125;</span>) &#123;</span><br><span class="line">    <span class="keyword">const</span> searchParams = <span class="title function_">useSearchParams</span>();</span><br><span class="line">    <span class="keyword">const</span> pathname = <span class="title function_">usePathname</span>();</span><br><span class="line">    <span class="keyword">const</span> &#123; replace &#125; = <span class="title function_">useRouter</span>();</span><br><span class="line"></span><br><span class="line">    <span class="keyword">const</span> handleSearch = <span class="title function_">useDebouncedCallback</span>(<span class="function">(<span class="params">term</span>) =&gt;</span> &#123;</span><br><span class="line">        <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">`Searching... <span class="subst">$&#123;term&#125;</span>`</span>);</span><br><span class="line"></span><br><span class="line">        <span class="keyword">const</span> params = <span class="keyword">new</span> <span class="title class_">URLSearchParams</span>(searchParams);</span><br><span class="line">        <span class="keyword">if</span> (term) &#123;</span><br><span class="line">            params.<span class="title function_">set</span>(<span class="string">&#x27;query&#x27;</span>, term);</span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">            params.<span class="title function_">delete</span>(<span class="string">&#x27;query&#x27;</span>);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="title function_">replace</span>(<span class="string">`<span class="subst">$&#123;pathname&#125;</span>?<span class="subst">$&#123;params.toString()&#125;</span>`</span>);</span><br><span class="line">    &#125;, <span class="number">300</span>);</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> (</span><br><span class="line">        <span class="language-xml"><span class="tag">&lt;<span class="name">div</span> <span class="attr">className</span>=<span class="string">&quot;relative flex flex-1 flex-shrink-0&quot;</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">            <span class="tag">&lt;<span class="name">label</span> <span class="attr">htmlFor</span>=<span class="string">&quot;search&quot;</span> <span class="attr">className</span>=<span class="string">&quot;sr-only&quot;</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">                搜索</span></span><br><span class="line"><span class="language-xml">            <span class="tag">&lt;/<span class="name">label</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">            <span class="tag">&lt;<span class="name">input</span></span></span></span><br><span class="line"><span class="tag"><span class="language-xml">                <span class="attr">className</span>=<span class="string">&quot;peer block w-full rounded-md border border-gray-200 py-[9px] pl-10 text-sm outline-2 placeholder:text-gray-500&quot;</span></span></span></span><br><span class="line"><span class="tag"><span class="language-xml">                <span class="attr">placeholder</span>=<span class="string">&#123;placeholder&#125;</span></span></span></span><br><span class="line"><span class="tag"><span class="language-xml">                <span class="attr">onChange</span>=<span class="string">&#123;(e)</span> =&gt;</span> &#123;</span></span><br><span class="line"><span class="language-xml">                    handleSearch(e.target.value);</span></span><br><span class="line"><span class="language-xml">                &#125;&#125;</span></span><br><span class="line"><span class="language-xml">                defaultValue=&#123;searchParams.get(&#x27;query&#x27;)?.toString()&#125;</span></span><br><span class="line"><span class="language-xml">            /&gt;</span></span><br><span class="line"><span class="language-xml">            <span class="tag">&lt;<span class="name">MagnifyingGlassIcon</span></span></span></span><br><span class="line"><span class="tag"><span class="language-xml">                <span class="attr">className</span>=<span class="string">&quot;absolute left-3 top-1/2 h-[18px] w-[18px] -translate-y-1/2 text-gray-500 peer-focus:text-gray-900&quot;</span>/&gt;</span></span></span><br><span class="line"><span class="language-xml">        <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span></span><br><span class="line">    );</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<h2 id="添加分页"><a href="#添加分页" class="headerlink" title="添加分页"></a>添加分页</h2><p><code>app/ui/invoices/pagination.tsx</code>文件中写入：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">&#x27;use client&#x27;</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> &#123;<span class="title class_">ArrowLeftIcon</span>, <span class="title class_">ArrowRightIcon</span>&#125; <span class="keyword">from</span> <span class="string">&#x27;@heroicons/react/24/outline&#x27;</span>;</span><br><span class="line"><span class="keyword">import</span> clsx <span class="keyword">from</span> <span class="string">&#x27;clsx&#x27;</span>;</span><br><span class="line"><span class="keyword">import</span> <span class="title class_">Link</span> <span class="keyword">from</span> <span class="string">&#x27;next/link&#x27;</span>;</span><br><span class="line"><span class="keyword">import</span> &#123;generatePagination&#125; <span class="keyword">from</span> <span class="string">&#x27;@/app/lib/utils&#x27;</span>;</span><br><span class="line"><span class="keyword">import</span> &#123;usePathname, useSearchParams&#125; <span class="keyword">from</span> <span class="string">&#x27;next/navigation&#x27;</span>;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> <span class="keyword">function</span> <span class="title function_">Pagination</span>(<span class="params">&#123;totalPages&#125;: &#123; totalPages: number &#125;</span>) &#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">const</span> pathname = <span class="title function_">usePathname</span>();</span><br><span class="line">    <span class="keyword">const</span> searchParams = <span class="title function_">useSearchParams</span>();</span><br><span class="line">    <span class="keyword">const</span> currentPage = <span class="title class_">Number</span>(searchParams.<span class="title function_">get</span>(<span class="string">&#x27;page&#x27;</span>)) || <span class="number">1</span>;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">const</span> allPages = <span class="title function_">generatePagination</span>(currentPage, totalPages);</span><br><span class="line"></span><br><span class="line">    <span class="keyword">const</span> <span class="title function_">createPageURL</span> = (<span class="params">pageNumber: number | string</span>) =&gt; &#123;</span><br><span class="line">        <span class="keyword">const</span> params = <span class="keyword">new</span> <span class="title class_">URLSearchParams</span>(searchParams);</span><br><span class="line">        params.<span class="title function_">set</span>(<span class="string">&#x27;page&#x27;</span>, pageNumber.<span class="title function_">toString</span>());</span><br><span class="line">        <span class="keyword">return</span> <span class="string">`<span class="subst">$&#123;pathname&#125;</span>?<span class="subst">$&#123;params.toString()&#125;</span>`</span>;</span><br><span class="line">    &#125;;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> (</span><br><span class="line">        <span class="language-xml"><span class="tag">&lt;&gt;</span></span></span><br><span class="line"><span class="language-xml">            <span class="tag">&lt;<span class="name">div</span> <span class="attr">className</span>=<span class="string">&quot;inline-flex&quot;</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">                <span class="tag">&lt;<span class="name">PaginationArrow</span></span></span></span><br><span class="line"><span class="tag"><span class="language-xml">                    <span class="attr">direction</span>=<span class="string">&quot;left&quot;</span></span></span></span><br><span class="line"><span class="tag"><span class="language-xml">                    <span class="attr">href</span>=<span class="string">&#123;createPageURL(currentPage</span> <span class="attr">-</span> <span class="attr">1</span>)&#125;</span></span></span><br><span class="line"><span class="tag"><span class="language-xml">                    <span class="attr">isDisabled</span>=<span class="string">&#123;currentPage</span> &lt;= <span class="string">1&#125;</span></span></span></span><br><span class="line"><span class="tag"><span class="language-xml">                /&gt;</span></span></span><br><span class="line"><span class="language-xml"></span></span><br><span class="line"><span class="language-xml">                <span class="tag">&lt;<span class="name">div</span> <span class="attr">className</span>=<span class="string">&quot;flex -space-x-px&quot;</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">                    &#123;allPages.map((page, index) =&gt; &#123;</span></span><br><span class="line"><span class="language-xml">                        let position: &#x27;first&#x27; | &#x27;last&#x27; | &#x27;single&#x27; | &#x27;middle&#x27; | undefined;</span></span><br><span class="line"><span class="language-xml"></span></span><br><span class="line"><span class="language-xml">                        if (index === 0) position = &#x27;first&#x27;;</span></span><br><span class="line"><span class="language-xml">                        if (index === allPages.length - 1) position = &#x27;last&#x27;;</span></span><br><span class="line"><span class="language-xml">                        if (allPages.length === 1) position = &#x27;single&#x27;;</span></span><br><span class="line"><span class="language-xml">                        if (page === &#x27;...&#x27;) position = &#x27;middle&#x27;;</span></span><br><span class="line"><span class="language-xml"></span></span><br><span class="line"><span class="language-xml">                        return (</span></span><br><span class="line"><span class="language-xml">                            <span class="tag">&lt;<span class="name">PaginationNumber</span></span></span></span><br><span class="line"><span class="tag"><span class="language-xml">                                <span class="attr">key</span>=<span class="string">&#123;page&#125;</span></span></span></span><br><span class="line"><span class="tag"><span class="language-xml">                                <span class="attr">href</span>=<span class="string">&#123;createPageURL(page)&#125;</span></span></span></span><br><span class="line"><span class="tag"><span class="language-xml">                                <span class="attr">page</span>=<span class="string">&#123;page&#125;</span></span></span></span><br><span class="line"><span class="tag"><span class="language-xml">                                <span class="attr">position</span>=<span class="string">&#123;position&#125;</span></span></span></span><br><span class="line"><span class="tag"><span class="language-xml">                                <span class="attr">isActive</span>=<span class="string">&#123;currentPage</span> === <span class="string">page&#125;</span></span></span></span><br><span class="line"><span class="tag"><span class="language-xml">                            /&gt;</span></span></span><br><span class="line"><span class="language-xml">                        );</span></span><br><span class="line"><span class="language-xml">                    &#125;)&#125;</span></span><br><span class="line"><span class="language-xml">                <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span></span><br><span class="line"><span class="language-xml"></span></span><br><span class="line"><span class="language-xml">                <span class="tag">&lt;<span class="name">PaginationArrow</span></span></span></span><br><span class="line"><span class="tag"><span class="language-xml">                    <span class="attr">direction</span>=<span class="string">&quot;right&quot;</span></span></span></span><br><span class="line"><span class="tag"><span class="language-xml">                    <span class="attr">href</span>=<span class="string">&#123;createPageURL(currentPage</span> + <span class="attr">1</span>)&#125;</span></span></span><br><span class="line"><span class="tag"><span class="language-xml">                    <span class="attr">isDisabled</span>=<span class="string">&#123;currentPage</span> &gt;</span>= totalPages&#125;</span></span><br><span class="line"><span class="language-xml">                /&gt;</span></span><br><span class="line"><span class="language-xml">            <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">        <span class="tag">&lt;/&gt;</span></span></span><br><span class="line">    );</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">function</span> <span class="title function_">PaginationNumber</span>(<span class="params">&#123;</span></span><br><span class="line"><span class="params">                              page,</span></span><br><span class="line"><span class="params">                              href,</span></span><br><span class="line"><span class="params">                              isActive,</span></span><br><span class="line"><span class="params">                              position,</span></span><br><span class="line"><span class="params">                          &#125;: &#123;</span></span><br><span class="line"><span class="params">    page: number | string;</span></span><br><span class="line"><span class="params">    href: string;</span></span><br><span class="line"><span class="params">    position?: <span class="string">&#x27;first&#x27;</span> | <span class="string">&#x27;last&#x27;</span> | <span class="string">&#x27;middle&#x27;</span> | <span class="string">&#x27;single&#x27;</span>;</span></span><br><span class="line"><span class="params">    isActive: boolean;</span></span><br><span class="line"><span class="params">&#125;</span>) &#123;</span><br><span class="line">    <span class="keyword">const</span> className = <span class="title function_">clsx</span>(</span><br><span class="line">        <span class="string">&#x27;flex h-10 w-10 items-center justify-center text-sm border&#x27;</span>,</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="string">&#x27;rounded-l-md&#x27;</span>: position === <span class="string">&#x27;first&#x27;</span> || position === <span class="string">&#x27;single&#x27;</span>,</span><br><span class="line">            <span class="string">&#x27;rounded-r-md&#x27;</span>: position === <span class="string">&#x27;last&#x27;</span> || position === <span class="string">&#x27;single&#x27;</span>,</span><br><span class="line">            <span class="string">&#x27;z-10 bg-blue-600 border-blue-600 text-white&#x27;</span>: isActive,</span><br><span class="line">            <span class="string">&#x27;hover:bg-gray-100&#x27;</span>: !isActive &amp;&amp; position !== <span class="string">&#x27;middle&#x27;</span>,</span><br><span class="line">            <span class="string">&#x27;text-gray-300&#x27;</span>: position === <span class="string">&#x27;middle&#x27;</span>,</span><br><span class="line">        &#125;,</span><br><span class="line">    );</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> isActive || position === <span class="string">&#x27;middle&#x27;</span> ? (</span><br><span class="line">        <span class="language-xml"><span class="tag">&lt;<span class="name">div</span> <span class="attr">className</span>=<span class="string">&#123;className&#125;</span>&gt;</span>&#123;page&#125;<span class="tag">&lt;/<span class="name">div</span>&gt;</span></span></span><br><span class="line">    ) : (</span><br><span class="line">        <span class="language-xml"><span class="tag">&lt;<span class="name">Link</span> <span class="attr">href</span>=<span class="string">&#123;href&#125;</span> <span class="attr">className</span>=<span class="string">&#123;className&#125;</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">            &#123;page&#125;</span></span><br><span class="line"><span class="language-xml">        <span class="tag">&lt;/<span class="name">Link</span>&gt;</span></span></span><br><span class="line">    );</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">function</span> <span class="title function_">PaginationArrow</span>(<span class="params">&#123;</span></span><br><span class="line"><span class="params">                             href,</span></span><br><span class="line"><span class="params">                             direction,</span></span><br><span class="line"><span class="params">                             isDisabled,</span></span><br><span class="line"><span class="params">                         &#125;: &#123;</span></span><br><span class="line"><span class="params">    href: string;</span></span><br><span class="line"><span class="params">    direction: <span class="string">&#x27;left&#x27;</span> | <span class="string">&#x27;right&#x27;</span>;</span></span><br><span class="line"><span class="params">    isDisabled?: boolean;</span></span><br><span class="line"><span class="params">&#125;</span>) &#123;</span><br><span class="line">    <span class="keyword">const</span> className = <span class="title function_">clsx</span>(</span><br><span class="line">        <span class="string">&#x27;flex h-10 w-10 items-center justify-center rounded-md border&#x27;</span>,</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="string">&#x27;pointer-events-none text-gray-300&#x27;</span>: isDisabled,</span><br><span class="line">            <span class="string">&#x27;hover:bg-gray-100&#x27;</span>: !isDisabled,</span><br><span class="line">            <span class="string">&#x27;mr-2 md:mr-4&#x27;</span>: direction === <span class="string">&#x27;left&#x27;</span>,</span><br><span class="line">            <span class="string">&#x27;ml-2 md:ml-4&#x27;</span>: direction === <span class="string">&#x27;right&#x27;</span>,</span><br><span class="line">        &#125;,</span><br><span class="line">    );</span><br><span class="line"></span><br><span class="line">    <span class="keyword">const</span> icon =</span><br><span class="line">        direction === <span class="string">&#x27;left&#x27;</span> ? (</span><br><span class="line">            <span class="language-xml"><span class="tag">&lt;<span class="name">ArrowLeftIcon</span> <span class="attr">className</span>=<span class="string">&quot;w-4&quot;</span>/&gt;</span></span></span><br><span class="line">        ) : (</span><br><span class="line">            <span class="language-xml"><span class="tag">&lt;<span class="name">ArrowRightIcon</span> <span class="attr">className</span>=<span class="string">&quot;w-4&quot;</span>/&gt;</span></span></span><br><span class="line">        );</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> isDisabled ? (</span><br><span class="line">        <span class="language-xml"><span class="tag">&lt;<span class="name">div</span> <span class="attr">className</span>=<span class="string">&#123;className&#125;</span>&gt;</span>&#123;icon&#125;<span class="tag">&lt;/<span class="name">div</span>&gt;</span></span></span><br><span class="line">    ) : (</span><br><span class="line">        <span class="language-xml"><span class="tag">&lt;<span class="name">Link</span> <span class="attr">className</span>=<span class="string">&#123;className&#125;</span> <span class="attr">href</span>=<span class="string">&#123;href&#125;</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">            &#123;icon&#125;</span></span><br><span class="line"><span class="language-xml">        <span class="tag">&lt;/<span class="name">Link</span>&gt;</span></span></span><br><span class="line">    );</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<p>然后取消page.tsx文件中的pagination组件注释。在<code>app/ui/search.tsx</code>文件中，handleSearch函数里写入：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">params.<span class="title function_">set</span>(<span class="string">&#x27;page&#x27;</span>, <span class="string">&#x27;1&#x27;</span>);</span><br></pre></td></tr></table></figure>
+
+<p>最后效果：<br><img src="https://images2.imgbox.com/21/b1/A42Su9rE_o.png" alt="image host"/></p>
+
+  </div>
+</article>
+
+
+
+        
+          <div id="footer-post-container">
+  <div id="footer-post">
+
+    <div id="nav-footer" style="display: none">
+      <ul>
+        
+          <li><a href="/">首页</a></li>
+        
+          <li><a href="/about/">关于</a></li>
+        
+          <li><a href="/archives/">归档</a></li>
+        
+      </ul>
+    </div>
+
+    
+    
+      <div id="toc-footer" style="display: none">
+        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%8A%A8%E6%80%81%E6%B8%B2%E6%9F%93"><span class="toc-number">1.</span> <span class="toc-text">动态渲染</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%B5%81%E4%BC%A0%E8%BE%93"><span class="toc-number">2.</span> <span class="toc-text">流传输</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%8F%91%E7%A5%A8%E9%A1%B5%E9%9D%A2%E6%B7%BB%E5%8A%A0%E6%90%9C%E7%B4%A2"><span class="toc-number">3.</span> <span class="toc-text">发票页面添加搜索</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%B7%BB%E5%8A%A0%E5%88%86%E9%A1%B5"><span class="toc-number">4.</span> <span class="toc-text">添加分页</span></a></li></ol>
+      </div>
+    
+
+    <div id="share-footer" style="display: none">
+      <ul>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.facebook.com/sharer.php?u=http://example.com/2024/04/06/next%E6%95%99%E7%A8%8B%E5%9B%9B/"><i class="fab fa-facebook fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://twitter.com/share?url=http://example.com/2024/04/06/next%E6%95%99%E7%A8%8B%E5%9B%9B/&text=next教程（四）"><i class="fab fa-twitter fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.linkedin.com/shareArticle?url=http://example.com/2024/04/06/next%E6%95%99%E7%A8%8B%E5%9B%9B/&title=next教程（四）"><i class="fab fa-linkedin fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://pinterest.com/pin/create/bookmarklet/?url=http://example.com/2024/04/06/next%E6%95%99%E7%A8%8B%E5%9B%9B/&is_video=false&description=next教程（四）"><i class="fab fa-pinterest fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=next教程（四）&body=Check out this article: http://example.com/2024/04/06/next%E6%95%99%E7%A8%8B%E5%9B%9B/"><i class="fa-solid fa-envelope fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://getpocket.com/save?url=http://example.com/2024/04/06/next%E6%95%99%E7%A8%8B%E5%9B%9B/&title=next教程（四）"><i class="fab fa-get-pocket fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://reddit.com/submit?url=http://example.com/2024/04/06/next%E6%95%99%E7%A8%8B%E5%9B%9B/&title=next教程（四）"><i class="fab fa-reddit fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.stumbleupon.com/submit?url=http://example.com/2024/04/06/next%E6%95%99%E7%A8%8B%E5%9B%9B/&title=next教程（四）"><i class="fab fa-stumbleupon fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://digg.com/submit?url=http://example.com/2024/04/06/next%E6%95%99%E7%A8%8B%E5%9B%9B/&title=next教程（四）"><i class="fab fa-digg fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.tumblr.com/share/link?url=http://example.com/2024/04/06/next%E6%95%99%E7%A8%8B%E5%9B%9B/&name=next教程（四）&description="><i class="fab fa-tumblr fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://news.ycombinator.com/submitlink?u=http://example.com/2024/04/06/next%E6%95%99%E7%A8%8B%E5%9B%9B/&t=next教程（四）"><i class="fab fa-hacker-news fa-lg" aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+
+    <div id="actions-footer">
+        <a id="menu" class="icon" href="#" onclick="$('#nav-footer').toggle();return false;"><i class="fa-solid fa-bars fa-lg" aria-hidden="true"></i> 菜单</a>
+        
+          <a id="toc" class="icon" href="#" onclick="$('#toc-footer').toggle();return false;"><i class="fa-solid fa-list fa-lg" aria-hidden="true"></i> 目录</a>
+        
+        <a id="share" class="icon" href="#" onclick="$('#share-footer').toggle();return false;"><i class="fa-solid fa-share-alt fa-lg" aria-hidden="true"></i> 分享</a>
+        <a id="top" style="display:none" class="icon" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fa-solid fa-chevron-up fa-lg" aria-hidden="true"></i> 返回顶部</a>
+    </div>
+
+  </div>
+</div>
+
+        
+        <footer id="footer">
+  <div class="footer-left">
+    Copyright &copy;
+    
+    
+    2023-2024
+    lu zhiyuan
+  </div>
+  <div class="footer-right">
+    <nav>
+      <ul>
+        <!--
+       --><li><a href="/">首页</a></li><!--
+     --><!--
+       --><li><a href="/about/">关于</a></li><!--
+     --><!--
+       --><li><a href="/archives/">归档</a></li><!--
+     -->
+      </ul>
+    </nav>
+  </div>
+</footer>
+
+    </div>
+    <!-- styles -->
+
+
+
+  <link rel="preload" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" crossorigin="anonymous" onload="this.onload=null;this.rel='stylesheet'"/>
+
+
+    <!-- jquery -->
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" crossorigin="anonymous"></script>
+
+
+
+
+<!-- clipboard -->
+
+  
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.7/clipboard.min.js" crossorigin="anonymous"></script>
+  
+  <script type="text/javascript">
+  $(function() {
+    // copy-btn HTML
+    var btn = "<span class=\"btn-copy tooltipped tooltipped-sw\" aria-label=\"复制到粘贴板！\">";
+    btn += '<i class="fa-regular fa-clone"></i>';
+    btn += '</span>';
+    // mount it!
+    $(".highlight table").before(btn);
+    var clip = new ClipboardJS('.btn-copy', {
+      text: function(trigger) {
+        return Array.from(trigger.nextElementSibling.querySelectorAll('.code')).reduce((str,it)=>str+it.innerText+'\n','')
+      }
+    });
+    clip.on('success', function(e) {
+      e.trigger.setAttribute('aria-label', "复制成功！");
+      e.clearSelection();
+    })
+  })
+  </script>
+
+
+<script src="/js/main.js"></script>
+
+<!-- search -->
+
+<!-- Baidu Analytics -->
+
+<!-- Cloudflare Analytics -->
+
+<!-- Disqus Comments -->
+
+<!-- utterances Comments -->
+
+</body>
+</html>

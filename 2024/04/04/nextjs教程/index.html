@@ -1,0 +1,337 @@
+<!DOCTYPE html>
+<html lang=zh>
+<head>
+    <!-- so meta -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="HandheldFriendly" content="True">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5" />
+    <meta name="description" content="安装nextjs：nextjs是一个react框架。  npx create-next-app@latest  这是官方文档推荐的安装方式，这里我用另一个命令安装别人已经写好的半成品：  npx create-next-app@latest nextjs-dashboard –use-npm –example “https:&#x2F;&#x2F;github.com&#x2F;vercel&#x2F;next-learn&#x2F;tree&#x2F;m">
+<meta property="og:type" content="article">
+<meta property="og:title" content="nextjs教程（一）">
+<meta property="og:url" content="http://example.com/2024/04/04/nextjs%E6%95%99%E7%A8%8B/index.html">
+<meta property="og:site_name" content="luzhiyuan的博客">
+<meta property="og:description" content="安装nextjs：nextjs是一个react框架。  npx create-next-app@latest  这是官方文档推荐的安装方式，这里我用另一个命令安装别人已经写好的半成品：  npx create-next-app@latest nextjs-dashboard –use-npm –example “https:&#x2F;&#x2F;github.com&#x2F;vercel&#x2F;next-learn&#x2F;tree&#x2F;m">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://images2.imgbox.com/cb/8c/N563eHYh_o.png">
+<meta property="article:published_time" content="2024-04-03T17:07:06.000Z">
+<meta property="article:modified_time" content="2024-05-02T05:19:10.697Z">
+<meta property="article:author" content="lu zhiyuan">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://images2.imgbox.com/cb/8c/N563eHYh_o.png">
+    
+    
+      
+        
+          <link rel="shortcut icon" href="/images/favicon.ico">
+        
+      
+      
+        
+          <link rel="icon" type="image/png" href="/images/favicon-192x192.png" sizes="192x192">
+        
+      
+      
+        
+          <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png">
+        
+      
+    
+    <!-- title -->
+    <title>nextjs教程（一）</title>
+    <!-- async scripts -->
+    <!-- Google Analytics -->
+
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-J22TKP0TKD"></script>
+  <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'G-J22TKP0TKD');
+  </script>
+
+
+    <!-- Umami Analytics -->
+
+
+    <!-- styles -->
+    
+<link rel="stylesheet" href="/css/style.css">
+
+    <!-- persian styles -->
+    
+    <!-- rss -->
+    
+    
+	<!-- mathjax -->
+	
+		<script type="text/x-mathjax-config">
+		  MathJax.Hub.Config({
+			tex2jax: {
+			  skipTags: ['script', 'noscript', 'style', 'textarea', 'pre'],
+			  inlineMath: [['$','$']]
+			}
+		  });
+		</script>
+		<script src='https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-MML-AM_CHTML' async></script>
+	
+<meta name="generator" content="Hexo 7.1.1"><link rel="alternate" href="/atom.xml" title="luzhiyuan的博客" type="application/atom+xml">
+</head>
+
+<body class="max-width mx-auto px3 ltr">
+    
+      <div id="header-post">
+  <a id="menu-icon" href="#" aria-label="目录"><i class="fa-solid fa-bars fa-lg"></i></a>
+  <a id="menu-icon-tablet" href="#" aria-label="目录"><i class="fa-solid fa-bars fa-lg"></i></a>
+  <a id="top-icon-tablet" href="#" aria-label="顶部" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');" style="display:none;"><i class="fa-solid fa-chevron-up fa-lg"></i></a>
+  <span id="menu">
+    <span id="nav">
+      <ul>
+        <!--
+       --><li><a href="/">首页</a></li><!--
+     --><!--
+       --><li><a href="/about/">关于</a></li><!--
+     --><!--
+       --><li><a href="/archives/">归档</a></li><!--
+     -->
+      </ul>
+    </span>
+    <br/>
+    <span id="actions">
+      <ul>
+        
+        <li><a class="icon" aria-label="上一篇" href="/2024/04/04/next%E6%95%99%E7%A8%8B%E4%BA%8C/"><i class="fa-solid fa-chevron-left" aria-hidden="true" onmouseover="$('#i-prev').toggle();" onmouseout="$('#i-prev').toggle();"></i></a></li>
+        
+        
+        <li><a class="icon" aria-label="下一篇" href="/2024/04/03/ffmpeg%E5%AE%9E%E7%94%A8%E5%91%BD%E4%BB%A4/"><i class="fa-solid fa-chevron-right" aria-hidden="true" onmouseover="$('#i-next').toggle();" onmouseout="$('#i-next').toggle();"></i></a></li>
+        
+        <li><a class="icon" aria-label="返回顶部" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fa-solid fa-chevron-up" aria-hidden="true" onmouseover="$('#i-top').toggle();" onmouseout="$('#i-top').toggle();"></i></a></li>
+        <li><a class="icon" aria-label="分享文章" href="#"><i class="fa-solid fa-share-alt" aria-hidden="true" onmouseover="$('#i-share').toggle();" onmouseout="$('#i-share').toggle();" onclick="$('#share').toggle();return false;"></i></a></li>
+      </ul>
+      <span id="i-prev" class="info" style="display:none;">上一篇</span>
+      <span id="i-next" class="info" style="display:none;">下一篇</span>
+      <span id="i-top" class="info" style="display:none;">返回顶部</span>
+      <span id="i-share" class="info" style="display:none;">分享文章</span>
+    </span>
+    <br/>
+    <div id="share" style="display: none">
+      <ul>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.facebook.com/sharer.php?u=http://example.com/2024/04/04/nextjs%E6%95%99%E7%A8%8B/"><i class="fab fa-facebook " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://twitter.com/share?url=http://example.com/2024/04/04/nextjs%E6%95%99%E7%A8%8B/&text=nextjs教程（一）"><i class="fab fa-twitter " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.linkedin.com/shareArticle?url=http://example.com/2024/04/04/nextjs%E6%95%99%E7%A8%8B/&title=nextjs教程（一）"><i class="fab fa-linkedin " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://pinterest.com/pin/create/bookmarklet/?url=http://example.com/2024/04/04/nextjs%E6%95%99%E7%A8%8B/&is_video=false&description=nextjs教程（一）"><i class="fab fa-pinterest " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=nextjs教程（一）&body=Check out this article: http://example.com/2024/04/04/nextjs%E6%95%99%E7%A8%8B/"><i class="fa-solid fa-envelope " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://getpocket.com/save?url=http://example.com/2024/04/04/nextjs%E6%95%99%E7%A8%8B/&title=nextjs教程（一）"><i class="fab fa-get-pocket " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://reddit.com/submit?url=http://example.com/2024/04/04/nextjs%E6%95%99%E7%A8%8B/&title=nextjs教程（一）"><i class="fab fa-reddit " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.stumbleupon.com/submit?url=http://example.com/2024/04/04/nextjs%E6%95%99%E7%A8%8B/&title=nextjs教程（一）"><i class="fab fa-stumbleupon " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://digg.com/submit?url=http://example.com/2024/04/04/nextjs%E6%95%99%E7%A8%8B/&title=nextjs教程（一）"><i class="fab fa-digg " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.tumblr.com/share/link?url=http://example.com/2024/04/04/nextjs%E6%95%99%E7%A8%8B/&name=nextjs教程（一）&description="><i class="fab fa-tumblr " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://news.ycombinator.com/submitlink?u=http://example.com/2024/04/04/nextjs%E6%95%99%E7%A8%8B/&t=nextjs教程（一）"><i class="fab fa-hacker-news " aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+    
+    
+      <div id="toc">
+        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%AE%89%E8%A3%85nextjs%EF%BC%9A"><span class="toc-number">1.</span> <span class="toc-text">安装nextjs：</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%A0%B7%E5%BC%8F"><span class="toc-number">2.</span> <span class="toc-text">样式</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#tailwind-css"><span class="toc-number">3.</span> <span class="toc-text">tailwind css</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BC%98%E5%8C%96%E5%AD%97%E4%BD%93"><span class="toc-number">4.</span> <span class="toc-text">优化字体</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BC%98%E5%8C%96%E5%9B%BE%E7%89%87"><span class="toc-number">5.</span> <span class="toc-text">优化图片</span></a></li></ol>
+      </div>
+    
+  </span>
+</div>
+
+    
+    <div class="content index py4 ">
+        
+        <article class="post h-entry" itemscope itemtype="http://schema.org/BlogPosting">
+  <header>
+    
+    <h1 class="posttitle p-name" itemprop="name headline">
+        nextjs教程（一）
+    </h1>
+
+
+
+    <div class="meta">
+      <span class="author p-author h-card" itemprop="author" itemscope itemtype="http://schema.org/Person">
+        <span class="p-name" itemprop="name">lu zhiyuan</span>
+      </span>
+      
+    <div class="postdate">
+      
+        <time datetime="2024-04-03T17:07:06.000Z" class="dt-published" itemprop="datePublished">2024-04-04</time>
+        
+      
+    </div>
+
+
+      
+
+      
+
+    </div>
+  </header>
+  
+
+  <div class="content e-content" itemprop="articleBody">
+    <h2 id="安装nextjs："><a href="#安装nextjs：" class="headerlink" title="安装nextjs："></a>安装nextjs：</h2><p>nextjs是一个react框架。</p>
+<blockquote>
+<p>npx create-next-app@latest</p>
+</blockquote>
+<p>这是官方文档推荐的安装方式，<br>这里我用另一个命令安装别人已经写好的半成品：</p>
+<blockquote>
+<p>npx create-next-app@latest nextjs-dashboard –use-npm –example “<a target="_blank" rel="noopener" href="https://github.com/vercel/next-learn/tree/main/dashboard/starter-example">https://github.com/vercel/next-learn/tree/main/dashboard/starter-example</a>“</p>
+</blockquote>
+<p>安装好之后，cd到<code>nextjs-dashboard</code>目录，运行<code>npm install</code>安装所需依赖，然后运行<code>npm run dev</code>查看效果。</p>
+<h2 id="样式"><a href="#样式" class="headerlink" title="样式"></a>样式</h2><p>这个模板工程默认没有导入css，到<code>app</code>目录下找到<code>layout.tsx</code>文件，输入</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> <span class="string">&#x27;@/app/ui/global.css&#x27;</span>;</span><br></pre></td></tr></table></figure>
+<p>导入样式，使之生效。</p>
+<h2 id="tailwind-css"><a href="#tailwind-css" class="headerlink" title="tailwind css"></a>tailwind css</h2><p>此工程默认采用tailwind css这个库来写样式，为什么不用原生写呢？当然原生也可以，react开发组件把html和js写到一块去了，<br>而tailwind css 让css也跟html，js糅合到一块去。这种把html，css写在JavaScript的方式可能有人不喜欢，没关系，<br>反正前端框架到处都是，分开写的也有很多。</p>
+<h2 id="优化字体"><a href="#优化字体" class="headerlink" title="优化字体"></a>优化字体</h2><p><code>/app/ui/</code>目录里创建<code>fonts.ts</code>文件,写入：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> &#123; <span class="title class_">Inter</span>, <span class="title class_">Lusitana</span> &#125; <span class="keyword">from</span> <span class="string">&#x27;next/font/google&#x27;</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">const</span> inter = <span class="title class_">Inter</span>(&#123; <span class="attr">subsets</span>: [<span class="string">&#x27;latin&#x27;</span>] &#125;);</span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">const</span> lusitana = <span class="title class_">Lusitana</span>(&#123;</span><br><span class="line">    <span class="attr">weight</span>: [<span class="string">&#x27;400&#x27;</span>, <span class="string">&#x27;700&#x27;</span>],</span><br><span class="line">    <span class="attr">subsets</span>: [<span class="string">&#x27;latin&#x27;</span>],</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+<p>导入google字体。</p>
+<p><code>layout.ts</code>文件里写入：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> <span class="string">&#x27;@/app/ui/global.css&#x27;</span>;</span><br><span class="line"><span class="keyword">import</span> &#123;inter&#125; <span class="keyword">from</span> <span class="string">&#x27;@/app/ui/fonts&#x27;</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> <span class="keyword">function</span> <span class="title function_">RootLayout</span>(<span class="params">&#123;</span></span><br><span class="line"><span class="params">                                       children,</span></span><br><span class="line"><span class="params">                                   &#125;: &#123;</span></span><br><span class="line"><span class="params">    children: React.ReactNode;</span></span><br><span class="line"><span class="params">&#125;</span>) &#123;</span><br><span class="line">    <span class="keyword">return</span> (</span><br><span class="line">        <span class="language-xml"><span class="tag">&lt;<span class="name">html</span> <span class="attr">lang</span>=<span class="string">&quot;en&quot;</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">        <span class="tag">&lt;<span class="name">body</span> <span class="attr">className</span>=<span class="string">&#123;</span>`$&#123;<span class="attr">inter.className</span>&#125; <span class="attr">antialiased</span>`&#125;&gt;</span>&#123;children&#125;<span class="tag">&lt;/<span class="name">body</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">        <span class="tag">&lt;/<span class="name">html</span>&gt;</span></span></span><br><span class="line">    );</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>使字体对整个网页生效，antialiased是一个tailwind类名，作用是使字体平滑。<br>到<code>page.tsx</code>文件里取消<code>&lt;AcmeLogo/&gt;</code>组件的注释。</p>
+<h2 id="优化图片"><a href="#优化图片" class="headerlink" title="优化图片"></a>优化图片</h2><p>nextjs的图片的根目录为<code>/public</code>，在这里放图片。<br>用nextjs的<code>&lt;Image&gt;</code>组件替代html的<code>&lt;img&gt;</code>标签，可以响应不同屏幕图像的尺寸。</p>
+<p>在page.tsx里写入</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> <span class="title class_">Image</span> <span class="keyword">from</span> <span class="string">&quot;next/image&quot;</span>;</span><br></pre></td></tr></table></figure>
+<p>导入组件。<br>然后在return里头写入：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">&lt;<span class="title class_">Image</span></span><br><span class="line">    src=<span class="string">&quot;/hero-desktop.png&quot;</span></span><br><span class="line">    width=&#123;<span class="number">1000</span>&#125;</span><br><span class="line">    height=&#123;<span class="number">760</span>&#125;</span><br><span class="line">    className=<span class="string">&quot;hidden md:block&quot;</span></span><br><span class="line">    alt=<span class="string">&quot;Screenshots of the dashboard project showing desktop version&quot;</span></span><br><span class="line">/&gt;</span><br><span class="line"><span class="language-xml"><span class="tag">&lt;<span class="name">Image</span></span></span></span><br><span class="line"><span class="tag"><span class="language-xml">    <span class="attr">src</span>=<span class="string">&quot;/hero-mobile.png&quot;</span></span></span></span><br><span class="line"><span class="tag"><span class="language-xml">    <span class="attr">width</span>=<span class="string">&#123;560&#125;</span></span></span></span><br><span class="line"><span class="tag"><span class="language-xml">    <span class="attr">height</span>=<span class="string">&#123;620&#125;</span></span></span></span><br><span class="line"><span class="tag"><span class="language-xml">    <span class="attr">className</span>=<span class="string">&quot;block md:hidden&quot;</span></span></span></span><br><span class="line"><span class="tag"><span class="language-xml">    <span class="attr">alt</span>=<span class="string">&quot;Screenshot of the dashboard project showing mobile version&quot;</span></span></span></span><br><span class="line"><span class="tag"><span class="language-xml">/&gt;</span></span></span><br></pre></td></tr></table></figure>
+<p>做好后效果图如下：<br><img src="https://images2.imgbox.com/cb/8c/N563eHYh_o.png" alt="image host"/></p>
+
+  </div>
+</article>
+
+
+
+        
+          <div id="footer-post-container">
+  <div id="footer-post">
+
+    <div id="nav-footer" style="display: none">
+      <ul>
+        
+          <li><a href="/">首页</a></li>
+        
+          <li><a href="/about/">关于</a></li>
+        
+          <li><a href="/archives/">归档</a></li>
+        
+      </ul>
+    </div>
+
+    
+    
+      <div id="toc-footer" style="display: none">
+        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%AE%89%E8%A3%85nextjs%EF%BC%9A"><span class="toc-number">1.</span> <span class="toc-text">安装nextjs：</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%A0%B7%E5%BC%8F"><span class="toc-number">2.</span> <span class="toc-text">样式</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#tailwind-css"><span class="toc-number">3.</span> <span class="toc-text">tailwind css</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BC%98%E5%8C%96%E5%AD%97%E4%BD%93"><span class="toc-number">4.</span> <span class="toc-text">优化字体</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BC%98%E5%8C%96%E5%9B%BE%E7%89%87"><span class="toc-number">5.</span> <span class="toc-text">优化图片</span></a></li></ol>
+      </div>
+    
+
+    <div id="share-footer" style="display: none">
+      <ul>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.facebook.com/sharer.php?u=http://example.com/2024/04/04/nextjs%E6%95%99%E7%A8%8B/"><i class="fab fa-facebook fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://twitter.com/share?url=http://example.com/2024/04/04/nextjs%E6%95%99%E7%A8%8B/&text=nextjs教程（一）"><i class="fab fa-twitter fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.linkedin.com/shareArticle?url=http://example.com/2024/04/04/nextjs%E6%95%99%E7%A8%8B/&title=nextjs教程（一）"><i class="fab fa-linkedin fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://pinterest.com/pin/create/bookmarklet/?url=http://example.com/2024/04/04/nextjs%E6%95%99%E7%A8%8B/&is_video=false&description=nextjs教程（一）"><i class="fab fa-pinterest fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=nextjs教程（一）&body=Check out this article: http://example.com/2024/04/04/nextjs%E6%95%99%E7%A8%8B/"><i class="fa-solid fa-envelope fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://getpocket.com/save?url=http://example.com/2024/04/04/nextjs%E6%95%99%E7%A8%8B/&title=nextjs教程（一）"><i class="fab fa-get-pocket fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://reddit.com/submit?url=http://example.com/2024/04/04/nextjs%E6%95%99%E7%A8%8B/&title=nextjs教程（一）"><i class="fab fa-reddit fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.stumbleupon.com/submit?url=http://example.com/2024/04/04/nextjs%E6%95%99%E7%A8%8B/&title=nextjs教程（一）"><i class="fab fa-stumbleupon fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://digg.com/submit?url=http://example.com/2024/04/04/nextjs%E6%95%99%E7%A8%8B/&title=nextjs教程（一）"><i class="fab fa-digg fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.tumblr.com/share/link?url=http://example.com/2024/04/04/nextjs%E6%95%99%E7%A8%8B/&name=nextjs教程（一）&description="><i class="fab fa-tumblr fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://news.ycombinator.com/submitlink?u=http://example.com/2024/04/04/nextjs%E6%95%99%E7%A8%8B/&t=nextjs教程（一）"><i class="fab fa-hacker-news fa-lg" aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+
+    <div id="actions-footer">
+        <a id="menu" class="icon" href="#" onclick="$('#nav-footer').toggle();return false;"><i class="fa-solid fa-bars fa-lg" aria-hidden="true"></i> 菜单</a>
+        
+          <a id="toc" class="icon" href="#" onclick="$('#toc-footer').toggle();return false;"><i class="fa-solid fa-list fa-lg" aria-hidden="true"></i> 目录</a>
+        
+        <a id="share" class="icon" href="#" onclick="$('#share-footer').toggle();return false;"><i class="fa-solid fa-share-alt fa-lg" aria-hidden="true"></i> 分享</a>
+        <a id="top" style="display:none" class="icon" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fa-solid fa-chevron-up fa-lg" aria-hidden="true"></i> 返回顶部</a>
+    </div>
+
+  </div>
+</div>
+
+        
+        <footer id="footer">
+  <div class="footer-left">
+    Copyright &copy;
+    
+    
+    2023-2024
+    lu zhiyuan
+  </div>
+  <div class="footer-right">
+    <nav>
+      <ul>
+        <!--
+       --><li><a href="/">首页</a></li><!--
+     --><!--
+       --><li><a href="/about/">关于</a></li><!--
+     --><!--
+       --><li><a href="/archives/">归档</a></li><!--
+     -->
+      </ul>
+    </nav>
+  </div>
+</footer>
+
+    </div>
+    <!-- styles -->
+
+
+
+  <link rel="preload" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" crossorigin="anonymous" onload="this.onload=null;this.rel='stylesheet'"/>
+
+
+    <!-- jquery -->
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" crossorigin="anonymous"></script>
+
+
+
+
+<!-- clipboard -->
+
+  
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.7/clipboard.min.js" crossorigin="anonymous"></script>
+  
+  <script type="text/javascript">
+  $(function() {
+    // copy-btn HTML
+    var btn = "<span class=\"btn-copy tooltipped tooltipped-sw\" aria-label=\"复制到粘贴板！\">";
+    btn += '<i class="fa-regular fa-clone"></i>';
+    btn += '</span>';
+    // mount it!
+    $(".highlight table").before(btn);
+    var clip = new ClipboardJS('.btn-copy', {
+      text: function(trigger) {
+        return Array.from(trigger.nextElementSibling.querySelectorAll('.code')).reduce((str,it)=>str+it.innerText+'\n','')
+      }
+    });
+    clip.on('success', function(e) {
+      e.trigger.setAttribute('aria-label', "复制成功！");
+      e.clearSelection();
+    })
+  })
+  </script>
+
+
+<script src="/js/main.js"></script>
+
+<!-- search -->
+
+<!-- Baidu Analytics -->
+
+<!-- Cloudflare Analytics -->
+
+<!-- Disqus Comments -->
+
+<!-- utterances Comments -->
+
+</body>
+</html>
